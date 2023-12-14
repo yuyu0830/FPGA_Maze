@@ -1,4 +1,4 @@
-module VgaProcessor(i_Clk, o_HSync, o_VSync, r_Hpos, r_Vpos);
+module VGA(i_Clk, o_HSync, o_VSync, r_Hpos, r_Vpos);
  
 input         i_Clk,
 output        o_HSync;
@@ -53,5 +53,4 @@ output [10:0] r_VPos;
                 o_VSync = 1'b0;
             end  
         end
-        
 endmodule
