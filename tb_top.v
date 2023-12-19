@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module top_tb;
+module Top_tb;
 
     reg i_Clk;
     reg [2399:0] i_Maze;
