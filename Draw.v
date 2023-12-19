@@ -4,12 +4,12 @@ input          i_Clk, i_Rst;
 input [   1:0] i_MazeLevel;
 input [1199:0] i_MazeMap;
 
-output wire [39:0] o_Col;
-output wire [29:0] o_Row;
-
-output wire       o_HSync, o_VSync;
 output reg [ 2:0] o_Color;
 
+output wire o_HSync, o_VSync;
+
+wire [39:0] o_Col;
+wire [29:0] o_Row;
 wire        fDraw_Done;
 
 reg [29:0] c_Row,  n_Row;
