@@ -1,0 +1,30 @@
+input i_Clk, i_Rst                  = 클락, 리셋
+input [3:0] i_Keyboard              = 키보드 모듈의 input
+
+output [6:0] o_FND0, o_FND1, o_FND2 = FND로 가는 신호
+output [7:0] o_Red, o_Green, o_Blue = 모니터로 가는 색상 신호
+output o_vSync, o_hSync             = 모니터로 가는 Sync 신호
+output [3:0] o_LED                  = 디버깅용 버튼 눌림 상태 LED 신호 (추후 제거)
+
+reg [2:0] c_State, n_State                  = 상태 저장
+reg [ROW*COLUMN:0] c_Map, n_Map             = 현재 레벨의 미로
+reg [6:0] c_Col, n_Col                      = 현재 레벨의 열
+reg [5:0] c_Row, n_Row                      = 현재 레벨의 행
+reg [1:0] c_Level, n_Level                  = 현재 레벨
+reg [6:0] c_PlayerPos_X, n_PlayerPos_X      = 현재 플레이어의 미로 상에서의 X 좌표 (1 ~ 38)
+reg [5:0] c_PlayerPos_Y, n_PlayerPos_Y      = 현재 플레이어의 미로 상에서의 Y 좌표 (1 ~ 28)
+reg [1:0] c_NextDirection, n_NextDirection  = 다음 Move state에서 플레이어가 움직일 방향
+reg c_NeedMove, n_NeedMove                  = 다음 fDrawDone일 때 Move로 가야함
+
+wire [3:0] Key_o_Direction                              = 키보드 입력 (무조건 한 입력만 나옴)
+wire Key_o_fOut                                         = 키보드 입력이 되었다는 신호 (필요없을수도)
+
+wire [3:0] Timer_o_Sec0, Timer_o_Sec1, Timer_o_Sec2     = FND에 들어가는 타이머 숫자
+
+wire fStart                     = 미로 시작
+wire fRunning                   = 현재 미로 게임 실행중인지 (타이머 실행 여부)
+wire fMove, fLvCheck            = 현재 state가 Move인지, LV_CHECK인지
+wire fNeedMove, fNeedLevelUP    = 다음 fDrawDone일 때 move가 필요한지, LevelUp가 필요한지
+wire fDrawDone                  = 마지막 픽셀을 그리는 타이밍
+
+wire [10:0] PlayerPos           = 현재 플레이어의 포지션을 1차원 배열 상에서 표현 (1 ~ 1198)

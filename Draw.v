@@ -104,6 +104,7 @@ always@*
         end
         Hard : begin
         end
+      endcase
     end
     else begin
       o_Color = 3'b000;
