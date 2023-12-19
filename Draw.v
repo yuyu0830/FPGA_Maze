@@ -1,4 +1,4 @@
-module Draw(i_Clk, i_Rst, i_MazeLevel, i_MazeMap, o_Color, o_HSync, o_VSync, o_Color);
+module Draw(i_Clk, i_Rst, i_MazeLevel, i_MazeMap, o_Color, o_HSync, o_VSync);
 
 input          i_Clk, i_Rst;
 input [   1:0] i_MazeLevel;
