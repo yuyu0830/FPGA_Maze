@@ -1,4 +1,4 @@
-module Draw(i_Clk, i_Rst, i_MazeLevel, i_MazeMap, o_Col, o_Row, o_HSync, o_VSync, o_Color, o_fDraw_Done);
+module Draw(i_Clk, i_Rst, i_MazeLevel, i_MazeMap, o_Color, o_HSync, o_VSync, o_Color);
 
 input          i_Clk, i_Rst;
 input [   1:0] i_MazeLevel;
@@ -10,13 +10,11 @@ output wire [29:0] o_Row;
 output wire       o_HSync, o_VSync;
 output reg [ 2:0] o_Color;
 
-output wire        o_fDraw_Done;
+wire        fDraw_Done;
 
 reg [29:0] c_Row,  n_Row;
 reg [16:0] c_Cnt,  n_Cnt;
 reg [ 9:0] r_HPos, r_VPos;
-
-wire r_HPos_Max, r_VPos_Max;
 
 parameter Lv1 = 40, Lv2 = 20, Lv3 = 10,
           Easy = 2'b00, Normal = 2'b01, Hard = 2'b10;
@@ -45,14 +43,8 @@ always@(posedge i_Clk, negedge i_Rst)
     r_HPos = 0;
     r_VPos = 0;
   end
- 
 
-assign o_HSync = r_HPos < 704 ? 1 : 0, //Horizontal sync
-       o_VSync = r_VPos < 523 ? 1 : 0, //Vertical sync
-       
-       r_HPos_Max   = r_HPos == 800,
-       r_VPos_Max   = r_VPos == 525,
-       o_fDraw_Done = r_HPos_Max & r_VPos_Max,
+assign fDraw_Done = r_HPos == 639 & r_VPos == 479,
 
        o_Row = c_Row,
        o_Col = (c_Row[29] ? i_MazeMap[40*29+:40] : 0)|
@@ -86,13 +78,23 @@ assign o_HSync = r_HPos < 704 ? 1 : 0, //Horizontal sync
                (c_Row[ 1] ? i_MazeMap[40* 1+:40] : 0)|
                (c_Row[ 0] ? i_MazeMap[40* 0+:40] : 0);
 
+//Horizontal sync
+always @(posedge i_Clk)
+  if (r_HPos < 704) o_HSync = 1'b1;
+  else o_HSync = 1'b0;
+
+//Vertical sync
+always @(posedge i_Clk)
+begin
+  if (r_VPos < 523) o_VSync = 1'b1;
+  else o_VSync = 1'b0;
+end  
+
 //Color
 always@*
   begin
-    n_Cnt = o_fDraw_Done ? 0 : c_Cnt + 1;
-    n_Row = o_fDraw_Done ? {c_Row[28:0], c_Row[29]} : c_Row;
-    
-    
+    n_Cnt = fDraw_Done ? 0 : c_Cnt + 1;
+    n_Row = fDraw_Done ? {c_Row[28:0], c_Row[29]} : c_Row;
     
     if((r_HPos < 640) & (r_VPos < 480)) begin
       case(i_MazeLevel)
