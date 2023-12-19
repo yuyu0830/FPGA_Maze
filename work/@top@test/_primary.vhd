@@ -1,0 +1,62 @@
+library verilog;
+use verilog.vl_types.all;
+entity TopTest is
+    generic(
+        IDLE            : vl_logic_vector(0 to 2) := (Hi0, Hi0, Hi0);
+        RUNNING         : vl_logic_vector(0 to 2) := (Hi0, Hi0, Hi1);
+        MOVE            : vl_logic_vector(0 to 2) := (Hi0, Hi1, Hi0);
+        LV_CHECK        : vl_logic_vector(0 to 2) := (Hi0, Hi1, Hi1);
+        CLEAR           : vl_logic_vector(0 to 2) := (Hi1, Hi0, Hi0);
+        ROW             : vl_logic_vector(0 to 6) := (Hi0, Hi1, Hi0, Hi1, Hi0, Hi0, Hi0);
+        COLUMN          : vl_logic_vector(0 to 5) := (Hi0, Hi1, Hi1, Hi1, Hi1, Hi0);
+        LEFT            : vl_logic_vector(0 to 1) := (Hi0, Hi0);
+        UP              : vl_logic_vector(0 to 1) := (Hi0, Hi1);
+        DOWN            : vl_logic_vector(0 to 1) := (Hi1, Hi0);
+        RIGHT           : vl_logic_vector(0 to 1) := (Hi1, Hi1);
+        BLOCK_EZ_COL    : vl_logic_vector(0 to 6) := (Hi0, Hi0, Hi1, Hi0, Hi0, Hi0, Hi0);
+        BLOCK_EZ_ROW    : vl_logic_vector(0 to 5) := (Hi0, Hi0, Hi1, Hi1, Hi0, Hi0);
+        BLOCK_MI_COL    : vl_logic_vector(0 to 6) := (Hi0, Hi1, Hi0, Hi0, Hi0, Hi0, Hi0);
+        BLOCK_MI_ROW    : vl_logic_vector(0 to 5) := (Hi0, Hi1, Hi1, Hi0, Hi0, Hi0);
+        BLOCK_HD_COL    : vl_logic_vector(0 to 6) := (Hi0, Hi1, Hi0, Hi1, Hi0, Hi0, Hi0);
+        BLOCK_HD_ROW    : vl_logic_vector(0 to 5) := (Hi0, Hi1, Hi1, Hi1, Hi1, Hi0);
+        MAZE_EZ         : vl_logic_vector;
+        MAZE_MI         : vl_logic_vector;
+        MAZE_HD         : vl_logic_vector
+    );
+    port(
+        i_Clk           : in     vl_logic;
+        i_Rst           : in     vl_logic;
+        i_Keyboard      : in     vl_logic_vector(3 downto 0);
+        i_fDrawDone     : in     vl_logic;
+        o_FND0          : out    vl_logic_vector(6 downto 0);
+        o_FND1          : out    vl_logic_vector(6 downto 0);
+        o_FND2          : out    vl_logic_vector(6 downto 0);
+        o_Red           : out    vl_logic_vector(7 downto 0);
+        o_Green         : out    vl_logic_vector(7 downto 0);
+        o_Blue          : out    vl_logic_vector(7 downto 0);
+        o_vSync         : out    vl_logic;
+        o_hSync         : out    vl_logic;
+        o_LED           : out    vl_logic_vector(3 downto 0)
+    );
+    attribute mti_svvh_generic_type : integer;
+    attribute mti_svvh_generic_type of IDLE : constant is 1;
+    attribute mti_svvh_generic_type of RUNNING : constant is 1;
+    attribute mti_svvh_generic_type of MOVE : constant is 1;
+    attribute mti_svvh_generic_type of LV_CHECK : constant is 1;
+    attribute mti_svvh_generic_type of CLEAR : constant is 1;
+    attribute mti_svvh_generic_type of ROW : constant is 1;
+    attribute mti_svvh_generic_type of COLUMN : constant is 1;
+    attribute mti_svvh_generic_type of LEFT : constant is 1;
+    attribute mti_svvh_generic_type of UP : constant is 1;
+    attribute mti_svvh_generic_type of DOWN : constant is 1;
+    attribute mti_svvh_generic_type of RIGHT : constant is 1;
+    attribute mti_svvh_generic_type of BLOCK_EZ_COL : constant is 1;
+    attribute mti_svvh_generic_type of BLOCK_EZ_ROW : constant is 1;
+    attribute mti_svvh_generic_type of BLOCK_MI_COL : constant is 1;
+    attribute mti_svvh_generic_type of BLOCK_MI_ROW : constant is 1;
+    attribute mti_svvh_generic_type of BLOCK_HD_COL : constant is 1;
+    attribute mti_svvh_generic_type of BLOCK_HD_ROW : constant is 1;
+    attribute mti_svvh_generic_type of MAZE_EZ : constant is 4;
+    attribute mti_svvh_generic_type of MAZE_MI : constant is 4;
+    attribute mti_svvh_generic_type of MAZE_HD : constant is 4;
+end TopTest;

@@ -21,10 +21,14 @@ wire Key_o_fOut                                         = 키보드 입력이 �
 
 wire [3:0] Timer_o_Sec0, Timer_o_Sec1, Timer_o_Sec2     = FND에 들어가는 타이머 숫자
 
+wire fRed, fGreen, fBlue        = 색상 신호 비트 (나중에 8비트 확장)
+
 wire fStart                     = 미로 시작
 wire fRunning                   = 현재 미로 게임 실행중인지 (타이머 실행 여부)
 wire fMove, fLvCheck            = 현재 state가 Move인지, LV_CHECK인지
 wire fNeedMove, fNeedLevelUP    = 다음 fDrawDone일 때 move가 필요한지, LevelUp가 필요한지
 wire fDrawDone                  = 마지막 픽셀을 그리는 타이밍
+
+wire fLeft, fUp, fDown, fRight  = 현재 위치에서 해당 방향이 moveable인지 flag 변수
 
 wire [10:0] PlayerPos           = 현재 플레이어의 포지션을 1차원 배열 상에서 표현 (1 ~ 1198)

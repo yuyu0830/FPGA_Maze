@@ -1,6 +1,7 @@
-module Top(
+module TopTest(
     input i_Clk, i_Rst,
     input [3:0] i_Keyboard,
+    input i_fDrawDone,
 
     output [6:0] o_FND0, o_FND1, o_FND2,
     output [7:0] o_Red, o_Green, o_Blue,
@@ -11,7 +12,7 @@ module Top(
 
     // reg
     reg [2:0] c_State, n_State;
-    reg [ROW*COLUMN:0] c_Map, n_Map;
+    reg [ROW*COLUMN-1:0] c_Map, n_Map;
     reg [6:0] c_Col, n_Col;
     reg [5:0] c_Row, n_Row;
     reg [1:0] c_Level, n_Level;
@@ -33,8 +34,9 @@ module Top(
     wire fMove, fLvCheck;
     wire fNeedMove, fNeedLevelUP;
     wire fDrawDone;
-
-    wire fLeft, fUp, fDown, fRight;
+    wire fLevelUP;
+    wire fLeft, fRight, fUp, fDown;
+    wire [10:0] fLeftC, fRightC, fUpC, fDownC;
 
     wire [10:0] PlayerPos;
 
@@ -45,25 +47,34 @@ module Top(
 
     FND F0(Timer_o_Sec0, o_FND0);
     FND F1(Timer_o_Sec1, o_FND1);
-    FND F2(Timer_o_Sec2, o_FND2);
+    FND F21(Timer_o_Sec2, o_FND2);
 
     // assign
+    assign  fDrawDone = i_fDrawDone;
+
     assign  PlayerPos = (c_PlayerPos_Y * ROW) + c_PlayerPos_X;
 
-    assign  fLeft   = c_Map[1199 - (PlayerPos - 1)],
-            fUp     = c_Map[1199 - (PlayerPos - ROW)],
-            fDown   = c_Map[1199 - (PlayerPos + ROW)],
-            fRight  = c_Map[1199 - (PlayerPos + 1)];
+    assign  fLeft  = !c_Map[fLeftC],
+            fRight = !c_Map[fRightC],
+            fUp    = !c_Map[fUpC],
+            fDown  = !c_Map[fDownC];
+
+    assign  fLeftC  = 1199 - (PlayerPos - 1'b1),
+            fRightC = 1199 - (PlayerPos + 1'b1),
+            fUpC    = 1199 - (PlayerPos - ROW),
+            fDownC  = 1199 - (PlayerPos + ROW);
+
+    assign  fLevelUP = fLvCheck & fNeedLevelUP;
 
     assign  fStart      = c_State == IDLE & Key_o_fOut,
             fRunning    = c_State != IDLE,
             fMove       = c_State == MOVE,
             fLvCheck    = c_State == LV_CHECK,
-            fNeedMove  = fRunning ? (
-                (Key_o_Direction[3] & fLeft) |
-                (Key_o_Direction[2] & fUp)   |
-                (Key_o_Direction[1] & fDown) |
-                (Key_o_Direction[0] & fRight)
+            fNeedMove   = fRunning & Key_o_fOut ? (
+                (Key_o_Direction[3] & !c_Map[fLeftC]) |
+                (Key_o_Direction[2] & !c_Map[fUpC]) |
+                (Key_o_Direction[1] & !c_Map[fDownC]) |
+                (Key_o_Direction[0] & !c_Map[fRightC])
             ) : 0,
             fNeedLevelUP = c_PlayerPos_X == c_Col - 2 & c_PlayerPos_Y == c_Row - 2;
     
@@ -81,7 +92,6 @@ module Top(
             c_PlayerPos_X   = 0;
             c_PlayerPos_Y   = 0;
             c_NeedMove      = 0;
-            c_NeedLevelUP   = 0;
             c_NextDirection = 0;
         end else begin
             c_State = n_State;
@@ -92,7 +102,6 @@ module Top(
             c_PlayerPos_X   = n_PlayerPos_X;
             c_PlayerPos_Y   = n_PlayerPos_Y;
             c_NeedMove      = n_NeedMove;
-            c_NeedLevelUP   = n_NeedLevelUP;
             c_NextDirection = n_NextDirection;
         end
 
@@ -104,15 +113,15 @@ module Top(
                 (c_Level == 3 ? MAZE_HD : 0));
         n_Col =  c_Level == 1 ? BLOCK_EZ_COL : 
                 (c_Level == 2 ? BLOCK_MI_COL :
-                (c_Level == 3 ? BLOCK_HD_COL));
+                (c_Level == 3 ? BLOCK_HD_COL : 0));
         n_Row =  c_Level == 1 ? BLOCK_EZ_ROW : 
                 (c_Level == 2 ? BLOCK_MI_ROW :
-                (c_Level == 3 ? BLOCK_HD_ROW));
-        n_PlayerPos_X = fLvCheck | fStart ? 1 : (fMove ? (c_NextDirection == LEFT  ? c_PlayerPos_X - 1 : 
+                (c_Level == 3 ? BLOCK_HD_ROW : 0));
+        n_PlayerPos_X = fLevelUP | fStart ? 1 : (fMove ? (c_NextDirection == LEFT  ? c_PlayerPos_X - 1 : 
                                                          (c_NextDirection == RIGHT ? c_PlayerPos_X + 1 : c_PlayerPos_X)) : c_PlayerPos_X);
-        n_PlayerPos_Y = fLvCheck | fStart ? 1 : (fMove ? (c_NextDirection == UP    ? c_PlayerPos_Y - 1 :
+        n_PlayerPos_Y = fLevelUP | fStart ? 1 : (fMove ? (c_NextDirection == UP    ? c_PlayerPos_Y - 1 :
                                                          (c_NextDirection == DOWN  ? c_PlayerPos_Y + 1 : c_PlayerPos_Y)) : c_PlayerPos_Y);
-        n_Level = fLvCheck & fNeedLevelUP ? c_Level + 1 : c_Level;
+        n_Level = fStart | fLevelUP ? c_Level + 1 : c_Level;
         n_NextDirection = fNeedMove ? (Key_o_Direction[3] ? LEFT : 
                                       (Key_o_Direction[2] ? UP :
                                       (Key_o_Direction[1] ? DOWN : RIGHT))) : c_NextDirection;
@@ -132,10 +141,4 @@ module Top(
                 n_State = RUNNING;
         endcase
     end
-            
-
-
-
-
- 
 endmodule

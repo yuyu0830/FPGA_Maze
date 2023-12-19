@@ -31,17 +31,17 @@ module Timer(
         end
     
     assign  o_Sec0 = c_Sec0,
-            o_Sec1 = c_Sec1;
+            o_Sec1 = c_Sec1,
             o_Sec2 = c_Sec2;
 
     assign  fLstClk = c_ClkCnt == LST_CLK;
 
     assign  fLstSec0 = c_Sec0 == 9,
-            fLstSec1 = c_Sec1 == 9
+            fLstSec1 = c_Sec1 == 9,
             fLstSec2 = c_Sec2 == 9;
 
     assign  fIncSec0 = fLstClk,
-            fIncSec1 = fIncSec0 && fLstSec0;
+            fIncSec1 = fIncSec0 && fLstSec0,
             fIncSec2 = fIncSec1 && fLstSec1;
 
     always@*
