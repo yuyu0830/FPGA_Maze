@@ -18,7 +18,7 @@ r1
 Z9 !s90 -reportprogress|300|-work|work|C:/Research/SIM/Project/FPGA_Maze/FND.v|
 Z10 o-work work -O0
 Z11 n@f@n@d
-Z12 !s108 1703008783.471000
+Z12 !s108 1703009363.893000
 Z13 !s107 C:/Research/SIM/Project/FPGA_Maze/FND.v|
 !i10b 1
 !s85 0
@@ -40,7 +40,7 @@ R10
 n@key
 !i10b 1
 !s85 0
-Z21 !s108 1703008783.504000
+Z21 !s108 1703009363.927000
 Z22 !s107 C:/Research/SIM/Project/FPGA_Maze/Key.v|
 !s101 -O0
 vTimer
@@ -57,18 +57,18 @@ R8
 r1
 !s85 0
 31
-!s108 1703008783.538000
+!s108 1703009363.961000
 !s107 C:/Research/SIM/Project/FPGA_Maze/Timer.v|
 Z29 !s90 -reportprogress|300|-work|work|C:/Research/SIM/Project/FPGA_Maze/Timer.v|
 !s101 -O0
 R10
 Z30 n@timer
 vTop_tb
-Z31 !s100 2CfK=Ej0@4XU@RKQ]HlGd2
-Z32 IBj5cMBX8l0_3z]M@=FJY[1
+Z31 !s100 dC4z:2Noohlz[:SW]PD[D1
+Z32 IP6[Yg<LbTT]P>WV[kRzlM3
 Z33 V>ESGj[0fa@iCKo[2X5;m]0
 R4
-Z34 w1703006103
+Z34 w1703009347
 Z35 8C:/Research/SIM/Project/FPGA_Maze/tb_Top.v
 Z36 FC:/Research/SIM/Project/FPGA_Maze/tb_Top.v
 L0 3
@@ -78,28 +78,28 @@ r1
 Z37 !s90 -reportprogress|300|-work|work|C:/Research/SIM/Project/FPGA_Maze/tb_Top.v|
 R10
 Z38 n@top_tb
-Z39 !s108 1703008783.400000
+Z39 !s108 1703009363.824000
 Z40 !s107 C:/Research/SIM/Project/FPGA_Maze/tb_Top.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vTopTest
-Z41 I>iV0YC8E8hlWz4afl?A8J2
-Z42 VA<96be0dfQDR2AdI6YX[30
+Z41 !s100 @ZVg<IfRh>_nfPj^Y3[b31
+Z42 I>iV0YC8E8hlWz4afl?A8J2
+Z43 VA<96be0dfQDR2AdI6YX[30
 R4
-Z43 w1703008781
-Z44 8C:/Research/SIM/Project/FPGA_Maze/TopTest.v
-Z45 FC:/Research/SIM/Project/FPGA_Maze/TopTest.v
-Z46 Fparameters.vh
+Z44 w1703008859
+Z45 8C:/Research/SIM/Project/FPGA_Maze/TopTest.v
+Z46 FC:/Research/SIM/Project/FPGA_Maze/TopTest.v
+Z47 Fparameters.vh
 L0 1
 R8
 r1
 31
-Z47 !s90 -reportprogress|300|-work|work|C:/Research/SIM/Project/FPGA_Maze/TopTest.v|
+Z48 !s90 -reportprogress|300|-work|work|C:/Research/SIM/Project/FPGA_Maze/TopTest.v|
 R10
-Z48 n@top@test
-Z49 !s100 @ZVg<IfRh>_nfPj^Y3[b31
-Z50 !s108 1703008783.434000
+Z49 n@top@test
+Z50 !s108 1703009363.857000
 Z51 !s107 parameters.vh|C:/Research/SIM/Project/FPGA_Maze/TopTest.v|
 !i10b 1
 !s85 0

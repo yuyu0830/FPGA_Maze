@@ -30,19 +30,56 @@ module Top_tb;
         Clk = 1;
         Rst = 0;
         c_Cnt = 0;
-        Keyboard = 0;
+        Keyboard = 4'b1111;
 
         @(negedge Clk) Rst = 1;
-        #100 Keyboard   = 4'b1011;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1011;
-        #10000 Keyboard = 4'b1001;
         #10000 Keyboard = 4'b1101;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1101;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1101;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1101;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1101;
+        #10000 Keyboard = 4'b1111; // 5
+        #10000 Keyboard = 4'b1101;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1101;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1101;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1101;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1101;
+        #10000 Keyboard = 4'b1111; // 10
+
+        #10000 Keyboard = 4'b1110;
         #10000 Keyboard = 4'b1111;
         #10000 Keyboard = 4'b1110;
         #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b0111;
-
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111; // 5
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111; // 10
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111;
+        #10000 Keyboard = 4'b1110;
+        #10000 Keyboard = 4'b1111;
 
         $stop;
     end
