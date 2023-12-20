@@ -56,5 +56,4 @@ module Key(i_Clk, i_Rst, i_Push, o_Push, o_fOut, o_LED);
                 
         endcase
     end
-//$write(“molrayo”);
 endmodule

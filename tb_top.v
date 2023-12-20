@@ -1,85 +1,34 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 1ns
 
 module Top_tb;
     reg Clk;
     reg Rst;
     reg [3:0] Keyboard;
-    wire fDrawDone;
+    reg fDrawDone;
 
     wire [6:0] o_FND0, o_FND1, o_FND2;
     wire [7:0] o_Red, o_Green, o_Blue;
-    wire o_vSync, o_hSync;
-    wire [3:0] o_LED;
-
-    reg [7:0] c_Cnt, n_Cnt;
+    wire o_Clk, o_blank, o_hsync, o_vsync;
+    wire [1:0] o_LED0;
+    wire [3:0] o_LED1, o_LED2;
 
     always #10 Clk = ~Clk;
-    
-    always
-    begin
-        #5 n_Cnt = c_Cnt + 1;
-        #5 c_Cnt = n_Cnt;
-    end
 
-    assign fDrawDone = c_Cnt == 8'b10_000_000;
-
-    TopTest T0(Clk, Rst, Keyboard, fDrawDone, o_FND0, o_FND1, o_FND2, o_Red, o_Green, o_Blue, o_vSync, o_hSync, o_LED);
+    Top T0(Clk, Rst, Keyboard, o_FND0, o_FND1, o_FND2, o_Red, o_Green, o_Blue, o_Clk, o_blank, o_hsync, o_vsync, o_LED0, o_LED1, o_LED2);
 
     initial
     begin
         Clk = 1;
         Rst = 0;
-        c_Cnt = 0;
         Keyboard = 4'b1111;
 
         @(negedge Clk) Rst = 1;
-        #10000 Keyboard = 4'b1101;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1101;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1101;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1101;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1101;
-        #10000 Keyboard = 4'b1111; // 5
-        #10000 Keyboard = 4'b1101;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1101;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1101;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1101;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1101;
-        #10000 Keyboard = 4'b1111; // 10
-
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111; // 5
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111; // 10
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
-        #10000 Keyboard = 4'b1110;
-        #10000 Keyboard = 4'b1111;
+        #17_000_000 Keyboard = 4'b1101;
+        #17_000_000 Keyboard = 4'b1111;
+        #17_000_000 Keyboard = 4'b1110;
+        #17_000_000 Keyboard = 4'b1111;
+        #17_000_000 Keyboard = 4'b1110;
+        #17_000_000 Keyboard = 4'b1111;
 
         $stop;
     end

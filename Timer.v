@@ -5,13 +5,13 @@ module Timer(
     output [3:0] o_Sec0, o_Sec1, o_Sec2
 );
 
-    parameter LST_CLK = 100000000 / 20 - 1;
+    parameter LST_CLK = 1_000_000_000 / 20 - 1;
 
     reg [3:0] c_Sec0, n_Sec0;
     reg [3:0] c_Sec1, n_Sec1;
     reg [3:0] c_Sec2, n_Sec2;
 
-    reg [22:0] c_ClkCnt, n_ClkCnt;
+    reg [25:0] c_ClkCnt, n_ClkCnt;
 
     wire fLstClk;
     wire fIncSec0, fIncSec1, fIncSec2;
