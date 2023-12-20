@@ -8,7 +8,7 @@ module Draw (
     output wire o_Clk, o_blank, o_hsync, o_vsync, o_fDrawDone);
 
     // wire
-    wire [5:0] PixelSize;
+    wire [5:0] BlockSize;
     wire [10:0] BlockPosition;
     wire fPlayer, fWall, fGoal;
 
@@ -23,10 +23,10 @@ module Draw (
             ROW      = 6'd40;
 
     // module
-    Sync    S0(i_Clk, i_Rst, PixelSize, o_Clk, o_hsync, o_vsync, o_blank, Sync_o_XPos, Sync_o_YPos, o_fDrawDone);
+    Sync    S0(i_Clk, i_Rst, BlockSize, o_Clk, o_hsync, o_vsync, o_blank, Sync_o_XPos, Sync_o_YPos, o_fDrawDone);
 
     // assign
-    assign  PixelSize = i_Level == 2'b01 ? PIXEL_EZ : 
+    assign  BlockSize = i_Level == 2'b01 ? PIXEL_EZ : 
                        (i_Level == 2'b10 ? PIXEL_MI : 
                        (i_Level == 2'b11 ? PIXEL_HD : 6'b111_111));
 
