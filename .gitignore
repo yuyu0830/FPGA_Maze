@@ -4,5 +4,8 @@
 *.mpf
 *.wlf
 *.vstf
+*.bak
+*.ipinfo
+
 
 work/
